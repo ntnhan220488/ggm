@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <default>
+        <reference name="head">
+            <!--            
+            <action method="removeItem"><type>css</type><name>css/styles-ie.css</name></action>
+
+            <action method="addCss"><stylesheet>css/bootstrap.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/bootstrap-responsive.css</stylesheet></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery-1.7.2.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/bootstrap.js</name></action>
+            -->
+            <action method="addItem"><type>skin_js</type><name>js/custom.js</name></action>            
+        </reference>
+        <reference name="header">
+            <reference name="top.links">
+                <action method="addLink" translate="label title">
+                    <label>Home Page</label>
+                    <url>/</url>
+                    <title>Home Page</title>
+                    <prepare/>
+                    <urlParams/>
+                    <position>01</position>
+                </action>
+            </reference>
+            <remove name="store_language"/>
+            <block type="page/switch" name="store_flag" as="store_flag" template="page/switch/flags.phtml"/>
+        </reference>
+        <reference name="top_slider">
+            <block type="cms/block"  name="showcase">
+                <action method="setBlockId">
+                    <block_id>showcase</block_id>
+                </action>
+            </block> 
+        </reference>
+        
+        <!-- remove some blocks here -->
+        <remove name="right.newsletter"/>
+        <remove name="tags_popular"/>
+        <remove name="paypal.partner.right.logo"/>
+        <remove name="left.permanent.callout-1"/>
+        <remove name="left.permanent.callout-2"/>
+        <remove name="right.poll"/>
+        <remove name="currency"/>
+    </default>
+    <!-- Catalog -->
+    
+    <catalog_category_layered>
+        <remove name="left"/>
+        <reference name="right">
+            <block type="catalog/navigation" after="catalog.leftnav" name="catalog.sidebar" template="catalog/navigation/sidebar.phtml"/>
+        </reference>
+    </catalog_category_layered>
+    
+    <catalog_category_default>
+        <remove name="left"/>
+        <reference name="right">
+            <block type="catalog/navigation" after="catalog.leftnav" name="catalog.sidebar" template="catalog/navigation/sidebar.phtml"/>
+        </reference>
+    </catalog_category_default>    
+    <!-- CMS -->
+    <cms_index_index>
+        <reference name="left">
+            <block type="catalog/navigation" before="-" name="catalog.sidebar" template="catalog/navigation/sidebar.phtml"/>
+        </reference>
+        <!--
+        <reference name="right">
+            <block type="catalog/layer_view" name="catalog.leftnav" after="cart_sidebar" template="catalog/layer/view.phtml"/>
+        </reference>
+        -->
+        <reference name="content">
+            <block type="catalog/product_new" name="home.product.new" alias="product_new" template="catalog/product/new.phtml" before="-">
+                <action method="setProductsCount"><count>3</count></action>
+                <action method="addPriceBlockType">
+                    <type>bundle</type>
+                    <block>bundle/catalog_product_price</block>
+                    <template>bundle/catalog/product/price.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </cms_index_index>
+    
+    <!-- Customer -->
+    <customer_account>
+        <reference name="left">
+            <remove name="catalog.compare.sidebar"/>
+            <remove name="cart_sidebar"/>
+        </reference>
+    </customer_account>
+    <customer_logged_out>
+        <reference name="top.links">
+            <action method="addLink" translate="label title">
+                <label>Register</label>
+                <url helper="customer/getRegisterUrl"/>
+                <title>Register</title>
+                <prepare/>
+                <urlParams/>
+                <position>90</position>
+            </action>
+        </reference>
+    </customer_logged_out>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="removeLinkByName"><name>recurring_profiles</name></action>
+            <action method="removeLinkByName"><name>billing_agreements</name></action>
+            <action method="removeLinkByName"><name>downloadable_products</name></action>
+            <action method="removeLinkByName"><name>reviews</name></action>
+            <action method="removeLinkByName"><name>tags</name></action>
+            <action method="removeLinkByName"><name>OAuth Customer Tokens</name></action>
+        </reference>
+    </customer_account>
+</layout>
