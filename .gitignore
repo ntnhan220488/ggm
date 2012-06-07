@@ -10,7 +10,6 @@ media/*
 downloader/*
 errors/*
 includes/*
-js/*
 lib/*
 nbproject/*
 pkginfo/*
