@@ -20,7 +20,6 @@ skin/frontend/base/*
 skin/frontend/default/*
 temp/*
 var/*
-.gitignore
 .htaccess
 .htaccess.sample
 .project
